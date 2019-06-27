@@ -1,5 +1,6 @@
 package com.example.givemevkkotlin.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -8,16 +9,40 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import com.arellomobile.mvp.MvpAppCompatActivity
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.givemevkkotlin.R
+import com.example.givemevkkotlin.presenters.LoginPresenter
+import com.example.givemevkkotlin.views.LoginView
+import com.github.rahatarmanahmed.cpv.CircularProgressView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class LoginActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, LoginView{
+
+    private lateinit var mTextLoginView: TextView
+    private lateinit var mBtnEnter: Button
+    private lateinit var mCpvWait: CircularProgressView
+
+    @InjectPresenter
+    lateinit var loginPresenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        mTextLoginView = findViewById(R.id.txt_login_hello)
+        mBtnEnter = findViewById(R.id.btn_login_enter)
+        mCpvWait = findViewById(R.id.progress_circular)
+
+        mBtnEnter.setOnClickListener{
+            loginPresenter.login(isSuccess = true)
+        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -84,5 +109,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    // Login view implementation
+    override fun startLoading() {
+        mBtnEnter.visibility = View.GONE
+        mCpvWait.visibility = View.VISIBLE
+    }
+
+    override fun endLoading() {
+        mBtnEnter.visibility = View.VISIBLE
+        mCpvWait.visibility = View.GONE
+    }
+
+    override fun showError(text: String) {
+        Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
+    }
+
+    override fun openFriends() {
+        startActivity(Intent(applicationContext, FriendsActivity::class.java))
     }
 }

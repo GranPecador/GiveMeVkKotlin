@@ -7,5 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="hello">Вас приветствует приложение вконтакте.</string>
-    <string name="enter">Войти</string>
+    <string name="enter">Enter</string>
+    <string name="friends_search_hint">Enter your query here"</string>
 </resources>

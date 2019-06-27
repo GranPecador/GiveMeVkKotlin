@@ -5,7 +5,7 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                             tools:context=".activities.MainActivity"
+                                             tools:context=".activities.LoginActivity"
                                              tools:showIn="@layout/app_bar_main">
 
     <TextView
@@ -13,11 +13,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hello"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.592"
-            app:layout_constraintVertical_bias="0.402"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.751" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_login_enter"/>
 
     <Button
             android:id="@+id/btn_login_enter"
@@ -28,20 +28,20 @@
             android:text="@string/enter"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="313dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="34dp" app:layout_constraintBottom_toTopOf="@+id/circularProgressView"/>
+    />
 
     <com.github.rahatarmanahmed.cpv.CircularProgressView
-            android:layout_width="@dimen/loaded_size"
-            android:layout_height="0dp"
+            android:layout_width="88dp"
+            android:layout_height="43dp"
             app:cpv_color="@color/colorPrimary"
             app:cpv_animAutostart="true"
             app:cpv_indeterminate="true"
             android:visibility="gone"
-            android:id="@+id/circularProgressView"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login_enter"
-            android:layout_marginBottom="240dp"
+            android:id="@+id/progress_circular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_enter" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintVertical_bias="0.248"/>
 
 </android.support.constraint.ConstraintLayout>
