@@ -7,7 +7,9 @@ import com.example.givemevkkotlin.models.FriendModel
 
 @StateStrategyType(value = AddToEndSingleStrategy::class)
 interface FriendsView : MvpView {
-    fun showError(text:String)
+    fun showError(textResource:Int)
     fun setupEmptyList()
     fun setupFriendsList(friendsList:ArrayList<FriendModel>)
+    fun startLoading()
+    fun endLoading()
 }

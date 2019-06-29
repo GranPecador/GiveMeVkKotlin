@@ -122,8 +122,8 @@ class LoginActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         mCpvWait.visibility = View.GONE
     }
 
-    override fun showError(text: String) {
-        Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
+    override fun showError(textResource: Int) {
+        Toast.makeText(applicationContext, getString(textResource), Toast.LENGTH_LONG).show()
     }
 
     override fun openFriends() {
