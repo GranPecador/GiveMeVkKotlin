@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,8 +20,14 @@ import com.example.givemevkkotlin.R
 import com.example.givemevkkotlin.presenters.LoginPresenter
 import com.example.givemevkkotlin.views.LoginView
 import com.github.rahatarmanahmed.cpv.CircularProgressView
+import com.vk.api.sdk.VK
+import com.vk.api.sdk.auth.VKAccessToken
+import com.vk.api.sdk.auth.VKAuthCallback
+import com.vk.api.sdk.auth.VKScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import com.vk.api.sdk.utils.VKUtils
+
 
 class LoginActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, LoginView{
 
@@ -41,7 +48,7 @@ class LoginActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         mCpvWait = findViewById(R.id.progress_circular)
 
         mBtnEnter.setOnClickListener{
-            loginPresenter.login(isSuccess = true)
+            VK.login(this, arrayListOf(VKScope.FRIENDS))
         }
 
         fab.setOnClickListener { view ->
@@ -58,6 +65,23 @@ class LoginActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val callback = object: VKAuthCallback {
+            override fun onLogin(token: VKAccessToken) {
+                // User passed authorization
+            }
+
+            override fun onLoginFailed(errorCode: Int) {
+                // User didn't pass authorization
+            }
+        }
+        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onBackPressed() {
